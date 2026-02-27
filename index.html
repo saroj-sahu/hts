@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="facebookCloneApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facebook Style App</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body>
+    <div ng-view></div>
+
+    <script type="text/ng-template" id="login.html">
+      <div class="fb-login-page">
+        <div class="login-left">
+          <h1>facebook</h1>
+          <p>
+            Connect with friends and the world around you on Facebook.
+          </p>
+        </div>
+
+        <div class="login-right">
+          <form class="login-card" ng-submit="login()">
+            <input
+              type="text"
+              ng-model="credentials.email"
+              placeholder="Email address or phone number"
+              required
+            />
+            <input
+              type="password"
+              ng-model="credentials.password"
+              placeholder="Password"
+              required
+            />
+            <button type="submit" class="btn btn-primary">Log In</button>
+            <a href="#" class="forgot-link">Forgotten password?</a>
+            <hr />
+            <button type="button" class="btn btn-success">Create New Account</button>
+            <p class="error" ng-if="errorMessage">{{ errorMessage }}</p>
+          </form>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="home.html">
+      <div class="home-wrapper">
+        <header class="topbar">
+          <div class="brand">facebook</div>
+          <input type="text" placeholder="Search Facebook" class="search" />
+          <div class="user-actions">
+            <span>Welcome, {{ currentUser }}</span>
+            <button class="btn-logout" ng-click="logout()">Logout</button>
+          </div>
+        </header>
+
+        <main class="feed-layout">
+          <aside class="left-nav">
+            <ul>
+              <li>🏠 Home</li>
+              <li>👥 Friends</li>
+              <li>🎥 Watch</li>
+              <li>🛍 Marketplace</li>
+              <li>🕘 Memories</li>
+            </ul>
+          </aside>
+
+          <section class="feed">
+            <div class="status-box">
+              <h3>What's on your mind, {{ currentUser }}?</h3>
+              <textarea placeholder="Share an update..."></textarea>
+              <button class="btn btn-primary">Post</button>
+            </div>
+
+            <article class="post-card" ng-repeat="post in posts">
+              <h4>{{ post.author }}</h4>
+              <p>{{ post.content }}</p>
+              <small>{{ post.time }}</small>
+            </article>
+          </section>
+
+          <aside class="right-panel">
+            <h4>Contacts</h4>
+            <ul>
+              <li ng-repeat="contact in contacts">{{ contact }}</li>
+            </ul>
+          </aside>
+        </main>
+      </div>
+    </script>
+  </body>
+</html>
